@@ -14,7 +14,7 @@ class _NewTransactionState extends State<NewTransaction> {
 
   final amountController = TextEditingController();
 
-  void submitData() {
+  void _submitData() {
     final enteredTitle = titleController.text;
     final enteredAmount = int.parse(amountController.text);
 
@@ -49,7 +49,7 @@ class _NewTransactionState extends State<NewTransaction> {
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: titleController,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => _submitData(),
               // onChanged: (val) {
               //   titleInput = val;
               // },
@@ -58,19 +58,30 @@ class _NewTransactionState extends State<NewTransaction> {
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountController,
               keyboardType: TextInputType.number,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => _submitData(),
               // onChanged: (val) => amountInput = val,
             ),
             Row(
               children: <Widget>[
                 Text("No Date chosen"),
-                FlatButton(child: Text("Choose date"),onPressed: (){},),
+                FlatButton(
+                  textColor: Theme.of(context).primaryColor,
+                  child: Text(
+                    "Choose date",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () {},
+                ),
               ],
             ),
-            FlatButton(
-              child: Text('Add Transaction'),
-              textColor: Colors.purple,
-              onPressed: submitData,
+            FloatingActionButton(
+              child: Icon(
+                Icons.check_circle,
+                color: Theme.of(context).primaryColor,
+              ),
+              //child: Text('Add Transaction'),
+
+              onPressed: _submitData,
             ),
           ],
         ),
