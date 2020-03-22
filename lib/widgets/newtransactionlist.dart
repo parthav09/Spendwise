@@ -10,13 +10,13 @@ class NewTransaction extends StatefulWidget {
 }
 
 class _NewTransactionState extends State<NewTransaction> {
-  final titleController = TextEditingController();
-
-  final amountController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _amountController = TextEditingController();
+  DateTime _selectedDate;
 
   void _submitData() {
-    final enteredTitle = titleController.text;
-    final enteredAmount = int.parse(amountController.text);
+    final enteredTitle = _titleController.text;
+    final enteredAmount = int.parse(_amountController.text);
 
     if (enteredTitle.isEmpty || enteredAmount <= 0) {
       return;
@@ -30,6 +30,21 @@ class _NewTransactionState extends State<NewTransaction> {
     Navigator.of(context).pop();
   }
 
+    void _datePicker() {
+      showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2019),
+        lastDate: DateTime.now(),
+      ).then((pickedDate){
+        if(pickedDate == null){
+          return;
+        }
+        _selectedDate = pickedDate;
+      });
+    }
+
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -38,17 +53,14 @@ class _NewTransactionState extends State<NewTransaction> {
               topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0))),
       elevation: 5,
       child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30.0),
-                topLeft: Radius.circular(30.0))),
         padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
+            SizedBox(height: 5,),
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
-              controller: titleController,
+              controller: _titleController,
               onSubmitted: (_) => _submitData(),
               // onChanged: (val) {
               //   titleInput = val;
@@ -56,7 +68,7 @@ class _NewTransactionState extends State<NewTransaction> {
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
-              controller: amountController,
+              controller: _amountController,
               keyboardType: TextInputType.number,
               onSubmitted: (_) => _submitData(),
               // onChanged: (val) => amountInput = val,
@@ -66,11 +78,12 @@ class _NewTransactionState extends State<NewTransaction> {
                 Text("No Date chosen"),
                 FlatButton(
                   textColor: Theme.of(context).primaryColor,
-                  child: Text(
-                    "Choose date",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: () {},
+                  child: Icon(Icons.date_range),
+//                  Text(
+//                    "Choose date",
+//                    style: TextStyle(fontWeight: FontWeight.bold),
+//                  ),
+                  onPressed: _datePicker,
                 ),
               ],
             ),
@@ -80,7 +93,6 @@ class _NewTransactionState extends State<NewTransaction> {
                 color: Theme.of(context).primaryColor,
               ),
               //child: Text('Add Transaction'),
-
               onPressed: _submitData,
             ),
           ],
