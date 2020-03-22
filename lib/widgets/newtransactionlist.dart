@@ -66,10 +66,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 Text("No Date chosen"),
                 FlatButton(
                   textColor: Theme.of(context).primaryColor,
-                  child: Text(
-                    "Choose date",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  child: Icon(Icons.date_range),
                   onPressed: () {},
                 ),
               ],
