@@ -46,6 +46,7 @@ class _NewTransactionState extends State<NewTransaction> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
+
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: titleController,
@@ -66,7 +67,10 @@ class _NewTransactionState extends State<NewTransaction> {
                 Text("No Date chosen"),
                 FlatButton(
                   textColor: Theme.of(context).primaryColor,
-                  child: Icon(Icons.date_range),
+                  child: Text(
+                    "Choose date",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   onPressed: () {},
                 ),
               ],
