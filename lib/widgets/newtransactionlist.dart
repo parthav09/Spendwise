@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTx;
@@ -18,32 +19,38 @@ class _NewTransactionState extends State<NewTransaction> {
     final enteredTitle = _titleController.text;
     final enteredAmount = int.parse(_amountController.text);
 
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+    if(_amountController.text.isEmpty){
+      return;
+    }
+
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate==null) {
       return;
     }
 
     widget.addTx(
       enteredTitle,
       enteredAmount,
+      _selectedDate,
     );
 
     Navigator.of(context).pop();
   }
 
-    void _datePicker() {
-      showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2019),
-        lastDate: DateTime.now(),
-      ).then((pickedDate){
-        if(pickedDate == null){
-          return;
-        }
+  void _datePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2019),
+      lastDate: DateTime.now(),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
         _selectedDate = pickedDate;
       });
-    }
-
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +64,9 @@ class _NewTransactionState extends State<NewTransaction> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            SizedBox(height: 5,),
+            SizedBox(
+              height: 5,
+            ),
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: _titleController,
@@ -75,7 +84,11 @@ class _NewTransactionState extends State<NewTransaction> {
             ),
             Row(
               children: <Widget>[
-                Text("No Date chosen"),
+                Text(
+                  _selectedDate == null
+                      ? "No Date chosen"
+                      : DateFormat.yMd().format(_selectedDate),
+                ),
                 FlatButton(
                   textColor: Theme.of(context).primaryColor,
                   child: Icon(Icons.date_range),
