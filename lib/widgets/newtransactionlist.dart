@@ -85,6 +85,7 @@ class _NewTransactionState extends State<NewTransaction> {
             Row(
               children: <Widget>[
                 Text(
+
                   _selectedDate == null
                       ? "No Date chosen"
                       : DateFormat.yMd().format(_selectedDate),
