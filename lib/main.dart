@@ -187,7 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Container(
                       child: Text(
-                          "Bugs Found!! \nFeature Suggestions??\nCreate a new issue on GitHub to let me know, or contibute by forking and sending a PR",
+                          "Bugs Found!! \nFeature Suggestions??\nCreate a new issue on GitHub to let me know, or contibute by forking and sending a Personal Response",
                       style: TextStyle(
                         fontFamily: 'OpenSans',
                         fontSize: 12
