@@ -109,23 +109,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appbar = AppBar(
+      title: Text("Spendwise"),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.wb_sunny),
+          onPressed: () {
+            changeBrightness();
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.add),
+          color: Theme.of(context).accentColor,
+          onPressed: () => _startNewTransactions(context),
+        ),
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Spendwise"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.wb_sunny),
-            onPressed: () {
-              changeBrightness();
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.add),
-            color: Theme.of(context).accentColor,
-            onPressed: () => _startNewTransactions(context),
-          ),
-        ],
-      ),
+      appBar: appbar,
       drawer: Drawer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,8 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 6,
                     ),
                     CircleAvatar(
-                      child: Image.asset(
-                          'assets/images/Devlogo.jpeg'),
+                      child: Image.asset('assets/images/Devlogo.jpeg'),
                       radius: 40,
                       backgroundColor: Colors.white,
                     ),
@@ -186,27 +186,38 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   Container(
-                      child: Text(
-                          "Bugs Found!! \nFeature Suggestions??\nCreate a new issue on GitHub to let me know, or contibute by forking and sending a Personal Response",
-                      style: TextStyle(
-                        fontFamily: 'OpenSans',
-                        fontSize: 12
-                      ),),
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.all(10),
-                  alignment: Alignment.center,),
+                    child: Text(
+                      "Bugs Found!! \nFeature Suggestions??\nCreate a new issue on GitHub to let me know, or contibute by forking and sending a Personal Response",
+                      style: TextStyle(fontFamily: 'OpenSans', fontSize: 12),
+                    ),
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(10),
+                    alignment: Alignment.center,
+                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
-      body: Column(
+      body: SingleChildScrollView(
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Chart(_recentTransactions),
-          TransactionList(_usertransactions, _deleteTransaction),
+          Container(
+              height: (MediaQuery.of(context).size.height -
+                      appbar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.3,
+              child: Chart(_recentTransactions)),
+          Container(
+              height: (MediaQuery.of(context).size.height -
+                      appbar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.6,
+              child: TransactionList(_usertransactions, _deleteTransaction)),
         ],
+      ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
