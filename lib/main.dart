@@ -134,32 +134,38 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 80,
             ),
-            Card(
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0)),
-              margin: EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Column(children: <Widget>[
-                    SizedBox(
-                      height: 6,
-                    ),
-                    CircleAvatar(
-                      child: Image.asset('assets/images/Devlogo.jpeg'),
-                      radius: 40,
-                      backgroundColor: Colors.white,
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                  ]),
-                  Text(
-                    "</> by️\nParthav Joshi",
-                    style: Theme.of(context).appBarTheme.textTheme.title,
-                  )
-                ],
+            Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Card(
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0)),
+                margin: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Column(children: <Widget>[
+                      SizedBox(
+                        height: 6,
+                      ),
+                      CircleAvatar(
+                        child: Padding(
+                          padding: const EdgeInsets.all(11.0),
+                          child: Image.asset('assets/images/Devlogo.jpeg',width: 100,height: 100,),
+                        ),
+                        radius: 40,
+                        backgroundColor: Colors.white,
+                      ),
+                      SizedBox(
+                        height: 6,
+                      ),
+                    ]),
+                    Text(
+                      "</> by️\nParthav Joshi",
+                      style: Theme.of(context).appBarTheme.textTheme.title,
+                    )
+                  ],
+                ),
               ),
             ),
             SizedBox(
@@ -202,22 +208,22 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-              height: (MediaQuery.of(context).size.height -
-                      appbar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  0.3,
-              child: Chart(_recentTransactions)),
-          Container(
-              height: (MediaQuery.of(context).size.height -
-                      appbar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  0.6,
-              child: TransactionList(_usertransactions, _deleteTransaction)),
-        ],
-      ),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appbar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.3,
+                child: Chart(_recentTransactions)),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appbar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.7,
+                child: TransactionList(_usertransactions, _deleteTransaction)),
+          ],
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(

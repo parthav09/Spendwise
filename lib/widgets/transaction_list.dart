@@ -33,7 +33,7 @@ class TransactionList extends StatelessWidget {
                 return Card(
                   elevation: 10,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
+                      borderRadius: BorderRadius.circular(10.0)),
                   margin: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
                   child: ListTile(
                     leading: CircleAvatar(
