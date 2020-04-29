@@ -19,11 +19,11 @@ class _NewTransactionState extends State<NewTransaction> {
     final enteredTitle = _titleController.text;
     final enteredAmount = int.parse(_amountController.text);
 
-    if(_amountController.text.isEmpty){
+    if (_amountController.text.isEmpty) {
       return;
     }
 
-    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate==null) {
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
       return;
     }
 
@@ -54,62 +54,65 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0))),
-      elevation: 5,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            SizedBox(
-              height: 5,
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Title'),
-              controller: _titleController,
-              onSubmitted: (_) => _submitData(),
-              // onChanged: (val) {
-              //   titleInput = val;
-              // },
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Amount'),
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => _submitData(),
-              // onChanged: (val) => amountInput = val,
-            ),
-            Row(
-              children: <Widget>[
-                Text(
-
-                  _selectedDate == null
-                      ? "No Date chosen"
-                      : DateFormat.yMd().format(_selectedDate),
-                ),
-                FlatButton(
-                  textColor: Theme.of(context).primaryColor,
-                  child: Icon(Icons.date_range),
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Container(
+          padding: EdgeInsets.only(
+              top: 10,
+              left: 10,
+              right: 10,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 10
+              ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              SizedBox(
+                height: 5,
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: 'Title'),
+                controller: _titleController,
+                onSubmitted: (_) => _submitData(),
+                // onChanged: (val) {
+                //   titleInput = val;
+                // },
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: 'Amount'),
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => _submitData(),
+                // onChanged: (val) => amountInput = val,
+              ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    _selectedDate == null
+                        ? "No Date chosen"
+                        : DateFormat.yMd().format(_selectedDate),
+                  ),
+                  FlatButton(
+                    textColor: Theme.of(context).primaryColor,
+                    child: Icon(Icons.date_range),
 //                  Text(
 //                    "Choose date",
 //                    style: TextStyle(fontWeight: FontWeight.bold),
 //                  ),
-                  onPressed: _datePicker,
-                ),
-              ],
-            ),
-            FloatingActionButton(
-              child: Icon(
-                Icons.check_circle,
-                color: Theme.of(context).primaryColor,
+                    onPressed: _datePicker,
+                  ),
+                ],
               ),
-              //child: Text('Add Transaction'),
-              onPressed: _submitData,
-            ),
-          ],
+              FloatingActionButton(
+                child: Icon(
+                  Icons.check_circle,
+                  color: Theme.of(context).primaryColor,
+                ),
+                //child: Text('Add Transaction'),
+                onPressed: _submitData,
+              ),
+            ],
+          ),
         ),
       ),
     );
