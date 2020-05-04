@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:spendwise/intropage.dart';
 import 'package:spendwise/models/transactions.dart';
 import 'package:spendwise/widgets/chart.dart';
 import 'package:spendwise/widgets/newtransactionlist.dart';
@@ -65,6 +66,18 @@ class _MyHomePageState extends State<MyHomePage> {
             ? Brightness.light
             : Brightness.dark);
   }
+
+  void _selectpage(BuildContext ctx){
+    Navigator.of(ctx).push(CupertinoPageRoute(builder: (_){
+      return IntroPage();
+    }));
+  }
+
+//  void _selectcategory(BuildContext ctx) {
+//    Navigator.of(ctx).push(CupertinoPageRoute(builder: (_) {
+//      return CategoryMealsScreen();
+//    }));
+//  }
 
   final List<Transaction> _usertransactions = [];
   bool _showchart = false;
@@ -142,11 +155,41 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           );
+    final bottomnavbar = BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      color: Colors.blue,
+      child: Container(
+        height: (mediaquery.size.height -
+                appbar.preferredSize.height -
+                mediaquery.padding.top) *
+            0.08,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.home,
+                size: 26,
+              ),
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.info,
+                size: 26,
+              ),
+              onPressed: ()=> _selectpage(context),
+            ),
+          ],
+        ),
+      ),
+    );
+
     final txListwidget = Container(
         height: (mediaquery.size.height -
                 appbar.preferredSize.height -
                 mediaquery.padding.top) *
-            0.7,
+            0.62,
         child: TransactionList(_usertransactions, _deleteTransaction));
 
     final appbody = SafeArea(
@@ -158,7 +201,10 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('Show chart', style: Theme.of(context).textTheme.title,),
+                  Text(
+                    'Show chart',
+                    style: Theme.of(context).textTheme.title,
+                  ),
                   Switch.adaptive(
                     value: _showchart,
                     onChanged: (val) {
@@ -198,93 +244,10 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         : Scaffold(
             appBar: appbar,
-            drawer: Drawer(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    height: 80,
-                  ),
-                  Container(
-                    width: mediaquery.size.width * 0.9,
-                    child: Card(
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0)),
-                      margin: EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Column(children: <Widget>[
-                            SizedBox(
-                              height: 6,
-                            ),
-                            CircleAvatar(
-                              child: Padding(
-                                padding: const EdgeInsets.all(11.0),
-                                child: Image.asset(
-                                  'assets/images/Devlogo.jpeg',
-                                  width: 100,
-                                  height: 100,
-                                ),
-                              ),
-                              radius: 40,
-                              backgroundColor: Colors.white,
-                            ),
-                            SizedBox(
-                              height: 6,
-                            ),
-                          ]),
-                          Text(
-                            "</> by️\nParthav Joshi",
-                            style:
-                                Theme.of(context).appBarTheme.textTheme.title,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Card(
-                    elevation: 5,
-                    margin: EdgeInsets.all(10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "\n Feedback",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(),
-                          ],
-                        ),
-                        Container(
-                          child: Text(
-                            "Bugs Found!! \nFeature Suggestions??\nCreate a new issue on GitHub to let me know, or contibute by forking and sending a Personal Response",
-                            style:
-                                TextStyle(fontFamily: 'OpenSans', fontSize: 12),
-                          ),
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.all(10),
-                          alignment: Alignment.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            bottomNavigationBar: bottomnavbar,
             body: appbody,
-            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
             floatingActionButton: Platform.isIOS
                 ? SizedBox()
                 : FloatingActionButton(
