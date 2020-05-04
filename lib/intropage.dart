@@ -5,7 +5,7 @@ class IntroPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ABout the Developer"),
+        title: Text("About the Developer"),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
