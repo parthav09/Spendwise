@@ -57,10 +57,12 @@ class IntroPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       IconButton(
-                        icon: Icon(EvaIcons.github),
+                        icon: Icon(EvaIcons.github,),
+                        onPressed: (){},
                       ),
                       IconButton(
                         icon: Icon(EvaIcons.twitter),
+                        onPressed: (){},
                       ),
                     ],
                   ),
